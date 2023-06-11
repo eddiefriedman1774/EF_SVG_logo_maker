@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/eddiefriedman1774/EF_SVG_logo_maker#readme",
   "dependencies": {
+    "fs": "^0.0.1-security",
     "inquirer": "^8.2.4",
     "jest": "^29.5.0"
   }
