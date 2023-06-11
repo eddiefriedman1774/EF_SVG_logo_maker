@@ -45,10 +45,8 @@ async function init() {
 
         // Prompt Inquirer questions
         const userResponses = await inquirer.prompt(questions);
-        console.log("Your responses: ", userResponses);
-        console.log("Thank you for your responses!");
-    
-       
+        let fileData = generateSVG(userResponses.three_characters,userResponses.text_color, userResponses.shape, userResponses.color)
+        writeToFile("SVG_LOGO.svg",fileData)
     } catch (error) {
         console.log(error);
     }
@@ -58,12 +56,17 @@ function generateSVG (characters, textColor, shapeType, shapeColor) {
     svg = `<?xml version="1.0" standalone="no"?>`+"\n"
     svg += `<svg width="300" height="200" version="1.1"`
     svg += ` xmlns="http://www.w3.org/2000/svg">`+"\n"
-    svg += ` <rect x="10" y="10" width="30" height="30" stroke="black" />`+"\n"
+    if (shapeType == "square"){
+        svg += ` <rect x="100" y="100" width="100" height="100" stroke="${shapeColor}" fill="${shapeColor}" />`+"\n"
+    } else if(shapeType== "circle"){
+       svg += `<circle cx="149" cy="149" r="20" stroke="${shapeColor}" fill="${shapeColor}" />`
+    } else if (shapeType== "triangle"){
+        svg+= `<polygon points="100,200,150,100, 200,200" stroke="${shapeColor}" fill="${shapeColor}" />`
+    }
+
+    svg += `<text x="135" y="155" stroke="${textColor}" fill="${textColor}">${characters} </text>`
     svg += `</svg>`
     return svg 
 };
 
-// init();
-
-fileData = generateSVG();
-writeToFile ("SVG_LOGO.svg", fileData);
+init();
